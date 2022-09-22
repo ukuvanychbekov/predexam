@@ -19,7 +19,8 @@ class RegisterSenderView(CreateAPIView):
     def perform_create(self, serializer):
         user = serializer.save()
         if user:
-            UserProfile.objects.create(is_sender=True)
+            UserProfile.objects.create(is_sender=True, user=user)
+
 
 class RegisterBuyerView(CreateAPIView):
     queryset = User.objects.all()
@@ -28,6 +29,4 @@ class RegisterBuyerView(CreateAPIView):
     def perform_create(self, serializer):
         user = serializer.save()
         if user:
-            UserProfile.objects.create(is_sender=False)
-
-
+            UserProfile.objects.create(is_sender=False, user=user)
